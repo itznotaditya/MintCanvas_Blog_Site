@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<style>
+    .profile-form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: white;
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        border: 1px solid var(--border-color);
+    }
+
+    .profile-form-container h1 {
+        color: var(--secondary-color);
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .profile-form-container form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .profile-form-container p {
+        margin: 0;
+    }
+
+    .profile-form-container label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--text-color);
+    }
+
+    .profile-form-container input[type="text"],
+    .profile-form-container input[type="email"],
+    .profile-form-container textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        transition: var(--transition);
+    }
+
+    .profile-form-container input[type="file"] {
+        width: 100%;
+        padding: 0.5rem 0;
+    }
+
+    .profile-form-container input:focus,
+    .profile-form-container textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px var(--mint-hover);
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+</style>
+
+<div class="profile-form-container">
+    <h1>Edit Profile</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+            <button type="submit" class="btn">
+                <i class="fas fa-save"></i> Save Changes
+            </button>
+            <a href="{% url 'profile_view' username=user.username %}" class="btn" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-color);">
+                <i class="fas fa-times"></i> Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

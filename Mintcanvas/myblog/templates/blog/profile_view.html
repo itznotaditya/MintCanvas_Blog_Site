@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ profile.user.username }}'s Profile{% endblock %}
+
+{% block content %}
+<style>
+    .profile {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #f0fdf4;
+        min-height: 100vh;
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid #86efac;
+    }
+
+    .profile h1 {
+        color: #15803d;
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .rounded-photo {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #86efac;
+        box-shadow: 0 4px 12px rgba(74, 222, 128, 0.2);
+        margin: 1rem auto;
+        display: block;
+    }
+
+    .profile-info {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        margin: 2rem 0;
+        border: 1px solid #86efac;
+    }
+
+    .profile-info p {
+        margin: 1rem 0;
+        color: #374151;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    .profile-info strong {
+        color: #15803d;
+        min-width: 100px;
+        display: inline-block;
+    }
+
+    .edit-button {
+        background-color: #4ade80;
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .edit-button:hover {
+        background-color: #22c55e;
+        transform: translateY(-1px);
+    }
+
+    .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .post-card {
+        background: white;
+        border: 1px solid #86efac;
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(74, 222, 128, 0.1);
+    }
+
+    .post-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(74, 222, 128, 0.2);
+    }
+
+    .post-card h3 {
+        color: #15803d;
+        margin-bottom: 0.5rem;
+    }
+
+    .post-card h3 a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .post-card p {
+        color: #6b7280;
+        font-size: 0.9rem;
+    }
+
+    .section-title {
+        color: #15803d;
+        font-size: 2rem;
+        margin: 3rem 0 1.5rem;
+        border-bottom: 2px solid #86efac;
+        padding-bottom: 0.5rem;
+    }
+</style>
+
+<div class="profile">
+    <div class="profile-header">
+        <h1>{{ profile.user.username }}</h1>
+        {% if profile.profile_photo %}
+        <img src="{{ profile.profile_photo.url }}" alt="Profile Photo" class="rounded-photo">
+        {% endif %}
+    </div>
+
+    <div class="profile-info">
+        <p><strong>Full Name:</strong> {{ profile.full_name|default:"Not updated" }}</p>
+        <p><strong>Email:</strong> {{ profile.email|default:"Not updated" }}</p>
+        <p><strong>Location:</strong> {{ profile.location|default:"Not updated" }}</p>
+        <p><strong>Bio:</strong> {{ profile.bio|default:"Not updated" }}</p>
+        {% if user == profile.user %}
+            <a href="{% url 'profile_edit' username=user.username%}" class="edit-button">Edit Profile</a>
+        {% endif %}
+    </div>
+    
+    <h2 class="section-title">Blog Posts</h2>
+    <div class="posts-grid">
+        {% for post in profile.user.post_set.all %}
+            <div class="post-card">
+                <h3><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h3>
+                <p>{{ post.created_at|date:"F j, Y" }}</p>
+            </div>
+        {% empty %}
+            <p>No blog posts available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
