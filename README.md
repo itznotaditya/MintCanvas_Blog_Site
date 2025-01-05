@@ -13,7 +13,7 @@ Install Django and Ckeditor for Django.
     pip install django
     pip install django-ckeditor
 
-Open the Mintcanvas in yoiur preferred IDE (e.g: I use VS Code) and execute the following commands in terminal :
+Open the Mintcanvas in yoiur preferred IDE (e.g: I use VS Code) and execute the following commands in terminal
 
     cd myblog
     python3 manage.py makemigrations
