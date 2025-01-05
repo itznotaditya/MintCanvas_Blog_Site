@@ -8,22 +8,22 @@ It provides users with a space to share their thoughts, stories, and ideas in a 
 Whether you're a seasoned writer or a beginner, MintCanvas gives you the tools to publish and showcase your creativity in a soothing and visually appealing layout with easy to use controls!
 
 ## Installation instructions
-Install Django and Ckeditor for Django.
+Install Django and Ckeditor for Django
 
     pip install django
     pip install django-ckeditor
 
-Open the Mintcanvas in yoiur preferred IDE (e.g: I use VS Code) and execute the following commands in terminal
+Open the Mintcanvas in your preferred IDE (e.g: VS Code) and execute the following commands in the terminal
 
     cd myblog
     python3 manage.py makemigrations
     python3 manage.py migrate
 
-After that run the manage.py file :
+After that use the runserver command :
 
     python3 manage.py runserver
 
-You can either click on the link that pops up in the terminal to get redirected to the page *OR* open any preferred browser of your choice and paste the following URL :
+Open any preferred browser of your choice and paste the following URL :
 
     http://127.0.0.1:8000/
     
